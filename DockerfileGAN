@@ -1,0 +1,12 @@
+FROM tensorflow/tensorflow:latest-gpu-py3
+
+COPY Dataset/normalTraining/ Dataset/normalTraining/
+COPY Modules/ Modules/
+COPY GANTraining.py GANTraining.py
+
+RUN python3 -m pip install matplotlib
+RUN python3 -m pip install sklearn
+RUN python3 -m pip install pillow
+
+# Execute the program
+CMD python3 GANTraining.py Dataset/normalTraining/
