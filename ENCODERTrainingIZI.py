@@ -85,7 +85,7 @@ dataset = tf.data.Dataset.from_tensor_slices(train_images).shuffle(BUFFER_SIZE).
 path = str( sys.argv[3] )
 cmd = 'mkdir ' + path
 os.system( cmd )
-name = str( sys.argv[2] ) + '/generator_weights_' + '%03d' % (EPOCHS)
+name = str( sys.argv[2] ) + 'generator_weights_' + '%03d' % (EPOCHS)
 
 # CREATE AND LOAD THE GENERATOR MODEL
 g_model = MO.make_generator_model( noise_dim )
