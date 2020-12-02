@@ -10,9 +10,9 @@ mode = 'Test';
 bin = 50;
 
 path = sprintf('./../%s', folder );
-name = sprintf('%s/%s_score_novel_%s.txt',path,MODEL,dataset);
+name = sprintf('%s/%s_score_novel_%s_%s.txt',path,MODEL,dataset,mode);
 novel = load(name);
-name = sprintf('%s/%s_score_normal_%s.txt',path,MODEL,dataset);
+name = sprintf('%s/%s_score_normal_%s_%s.txt',path,MODEL,dataset,mode);
 normal = load(name);
 
 histogram(normal(:,1),bin)
@@ -25,5 +25,5 @@ ylabel('Patches')
 grid on
 legend('Normal','Anomaly')
 set(gca,'FontSize',18)
-name = sprintf('%s/%s_hist_%s_patch.png', path,MODEL,mode );
+name = sprintf('%s/%s_hist_%s.png', path,MODEL,mode );
 saveas(gcf,name)
