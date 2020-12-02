@@ -56,11 +56,10 @@ def train( path, e_model, g_model, d_features, e_opt, dataset, train_images, epo
     if (epoch + 1) % 10 == 0:
         summarize_performance( path, epoch, e_model, g_model, d_features, train_images )
 
-
 # LOAD DATA FOR TRAINING
-if len(sys.argv) != 2:
-    print('python3.6 ENCODERTrainingIZIf.py <img_dir> \n')
-    print('python3.6 ENCODERTrainingIZIf.py Dataset2/normalTraining/');
+if len(sys.argv) != 4:
+    print('python3.6 ENCODERTrainingIZIf.py <dataset> <ganfolder> <iziffolder> \n')
+    print('python3.6 ENCODERTrainingIZIf.py ...');
     sys.exit( 1 )
 
 PATCH_SIZE = GO.PATCH_SIZE
@@ -92,17 +91,17 @@ EPOCHS = GO.N_EPOCHS
 dataset = tf.data.Dataset.from_tensor_slices(train_images).shuffle(BUFFER_SIZE).batch(BATCH_SIZE)
 
 # NAME OF THE OUTPUT PATH
-path = 'E' + str(EPOCHS) +'_ENC_IZIf'
+path = str(sys.argv[ 3 ])
 cmd = 'mkdir ' + path
 os.system( cmd )
 
 # CREATE AND LOAD THE GENERATOR MODEL
-name = 'E' + str(EPOCHS) + '_GAN/generator_weights_' + '%03d' % (EPOCHS)
+name = str(sys.argv[ 2 ]) + '/generator_weights_' + '%03d' % (EPOCHS)
 g_model = MO.make_generator_model( noise_dim )
 g_model.load_weights( name )
 
 # CREATE AND LOAD THE DISCRIMINATOR MODEL
-name = 'E' + str(EPOCHS) + '_GAN/discriminator_weights_' + '%03d' % (EPOCHS)
+name = str(sys.argv[ 2 ]) +'/discriminator_weights_' + '%03d' % (EPOCHS)
 d_model = MO.make_discriminator_model( )
 d_model.load_weights( name )
 d_features = tf.keras.Model( d_model.inputs, d_model.get_layer('flatten').output ) # Create a model without the classification layer

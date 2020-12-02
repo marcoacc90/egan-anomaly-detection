@@ -48,8 +48,8 @@ def train( path, e_model, g_model, e_opt, epochs, n_batches, batch_size, latent_
 
 
 # LOAD DATA FOR TRAINING
-if len(sys.argv) != 2:
-    print('python3.6 ENCODERTrainingZIZ.py>\n')
+if len(sys.argv) != 3:
+    print('python3.6 ENCODERTrainingZIZ.py> GANFolder ZIZFolder\n')
     print('python3.6 ENCODERTrainingZIZ.py');
     sys.exit( 1 )
 
@@ -60,10 +60,10 @@ EPOCHS = GO.N_EPOCHS
 N_BATCHES = math.ceil( BUFFER_SIZE / BATCH_SIZE )
 
 # NAME OF THE OUTPUT PATH
-path = 'E' + str(EPOCHS) +'_ENC_ZIZ'
+path = str( sys.argv[ 2 ] )
 cmd = 'mkdir ' + path
 os.system( cmd )
-name = 'E'+ str(EPOCHS) + '_GAN/generator_weights_' + '%03d' % (EPOCHS)
+name = str( sys.argv[ 1 ] ) + '/generator_weights_' + '%03d' % (EPOCHS)
 
 # CREATE AND LOAD THE GENERATOR MODEL
 g_model = MO.make_generator_model( noise_dim )

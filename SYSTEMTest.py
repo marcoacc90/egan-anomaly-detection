@@ -1,104 +1,73 @@
 import numpy as np
 import tensorflow as tf
-from tensorflow import keras
 from tensorflow.keras.preprocessing import image as kimage
-from sklearn.feature_extraction import image as simage
 import Modules.Model as MO
-import Modules.Tools as TO
 import Modules.Global as GO
 import os
 import sys
+import time
 
-if len(sys.argv) != 1:
-    print('python3.6 SYSTEMTest.py\n')
-    print('python3.6 SYSTEMTest.py');
-    sys.exit( 1 )
+def main():
+    PATCH_SIZE = GO.PATCH_SIZE
+    latent_dim = GO.NOISE_DIM
 
-# LOAD MODELS
-EPOCHS = GO.N_EPOCHS
-MODEL = 'IZIf' #IZI, ZIZ, IZIf
-mode = 'Validation'  # Validation,Test
-latent_dim = GO.NOISE_DIM
+    if len(sys.argv) != 8:
+        print('python3.6 SYSTEMTest.py ... \n')
+        sys.exit( 1 )
 
-dataset = 'Dataset/'
-gan_folder = 'E' + str(EPOCHS) + '_GAN/'
+    print( 'model ' + str(sys.argv[ 1 ]))
+    print( 'modelid ' + str(sys.argv[ 2 ]))
+    print( 'dataset ' + str(sys.argv[ 3 ]))
+    print( 'ganfolder ' + str(sys.argv[ 4 ]))
+    print( 'encfolder ' + str(sys.argv[ 5 ]))
+    print( 'ofolder ' + str(sys.argv[ 6 ]))
+    print( 'oname ' + str(sys.argv[ 7 ]))
 
-path = 'E%d_Results' % (EPOCHS)
-name = gan_folder + 'generator_weights_' + str(EPOCHS)
-g_model = MO.make_generator_model( latent_dim )
-g_model.load_weights( name )
+    model = str( sys.argv[ 1 ] )
+    modelid = str( sys.argv[ 2 ] )
+    dataset = str( sys.argv[ 3 ] )
+    ganfolder = str( sys.argv[ 4 ] )
+    encfolder = str( sys.argv[ 5 ] )
+    ofolder = str( sys.argv[ 6 ] )
+    oname = str( sys.argv[ 7 ] )
 
-if MODEL == 'IZIf':
-	name =  gan_folder + 'discriminator_weights_' + '%03d' % (EPOCHS)
-	d_model = MO.make_discriminator_model( )
-	d_model.load_weights( name )
-	d_features = tf.keras.Model( d_model.inputs, d_model.get_layer('flatten').output )
-if MODEL == 'IZI':
-	name = 'E500_ENC_%s/encoder_weights_%03d' %(MODEL,EPOCHS)
-else :
-	name = 'E%d_ENC_%s/encoder_weights_%03d' %(EPOCHS,MODEL,EPOCHS)
-e_model = MO.make_encoder_model( latent_dim )
-e_model.load_weights( name )
+    # LOAD MODELS
+    g_model = MO.make_generator_model( latent_dim )
+    g_model.load_weights( ganfolder + 'generator_weights_' + modelid )
+    e_model = MO.make_encoder_model( latent_dim )
+    e_model.load_weights( encfolder + 'encoder_weights_' + modelid )
+    if model == 'IZIf':
+        d_model = MO.make_discriminator_model()
+        d_model.load_weights( ganfolder + 'discriminator_weights_' + modelid )
+        d_features = tf.keras.Model( d_model.inputs, d_model.get_layer('flatten').output )
 
-PATCH_SIZE = GO.PATCH_SIZE
-N_SAMPLES = GO.N_SAMPLES
-
-# TEST NORMAL
-img_dir = 'Dataset2/normal' + mode + '/'
-os.system('ls ' + img_dir + ' > Image.txt')
-name = '%s/%s_loss_normal_%s.txt' % (path,MODEL,mode)
-f = open( name, "w" )
-with open('Image.txt', 'r') as filehandle:
-    for line in filehandle:
-        name = line[:-1]
-        img = kimage.load_img(img_dir + name)
-        x = np.array( img )
-        patch = simage.extract_patches_2d( x, (PATCH_SIZE,PATCH_SIZE), max_patches = N_SAMPLES )
-        patch = patch.astype('float32')
-        patch = (patch - 127.5) / 127.5
-        z = e_model.predict( patch )
-        patch_est = g_model.predict( z )
-        if MODEL == 'IZIf' :
-            recon_features = d_features.predict( patch_est )
-            image_features = d_features.predict( patch )
-        for i in range( len( patch ) ) :
-            if MODEL == 'IZIf':
-                loss = MO.mse( patch[i,:,:,:], patch_est[i,:,:,:]) + MO.mse( image_features[i,:], recon_features[i,:])
+    os.system( 'mkdir ' + ofolder )
+    ofile = ofolder + '/' +  oname
+    os.system('ls ' + dataset + ' > Image.txt')
+    f = open( ofile, "w" )
+    with open('Image.txt', 'r') as filehandle:
+        for line in filehandle:
+            name = line[:-1]
+            img = kimage.load_img(dataset + name)
+            print( name )
+            x = np.array( img )
+            x = x.reshape( 1, PATCH_SIZE, PATCH_SIZE, 3 ).astype('float32')
+            x = (x - 127.5) / 127.5
+            start_time = time.time()
+            Ex = e_model.predict( x )
+            GEx = g_model.predict( Ex )
+            time_sec = ( time.time() - start_time )
+            if model == 'IZIf' :
+                recon_features = d_features.predict( GEx )
+                image_features = d_features.predict( x )
+                time_sec = ( time.time() - start_time )
+            if model == 'IZIf':
+                loss = MO.mse( x[0,:,:,:], GEx[0,:,:,:] ) + MO.mse( image_features[0,:], recon_features[0,:] )
             else:
-                loss = MO.mse( patch[i,:,:,:], patch_est[i,:,:,:] )
-            f.write( '%f ' % ( loss.numpy() ) )
-        f.write( '\n' )
-os.system('rm -r Image.txt')
-f.close()
+                loss = MO.mse( x[0,:,:,:], GEx[0,:,:,:] )
+            f.write( '%f %f\n' % ( loss.numpy(), time_sec) )
+    os.system('rm -r Image.txt')
+    f.close()
 
-
-# TEST ANOMALY
-img_dir = 'Dataset2/novel' + mode + '/'
-os.system('ls ' + img_dir + ' > Image.txt')
-name = '%s/%s_loss_novel_%s.txt' % (path,MODEL,mode)
-f = open( name, "w" )
-with open('Image.txt', 'r') as filehandle:
-    for line in filehandle:
-        name = line[:-1]
-        img = kimage.load_img(img_dir + name)
-        x = np.array( img )
-
-        patch = simage.extract_patches_2d( x, (PATCH_SIZE,PATCH_SIZE), max_patches = N_SAMPLES )
-        patch = patch.astype('float32')
-        patch = (patch - 127.5) / 127.5
-
-
-        z = e_model.predict( patch )
-        patch_est = g_model.predict( z )
-        if MODEL == 'IZIf' :
-            recon_features = d_features.predict( patch_est)
-            image_features = d_features.predict( patch )
-        for i in range( len( patch ) ) :
-            if MODEL == 'IZIf':
-                loss = MO.mse( patch[i,:,:,:], patch_est[i,:,:,:]) + MO.mse( image_features[i,:], recon_features[i,:])
-            else:
-                loss = MO.mse( patch[i,:,:,:], patch_est[i,:,:,:] )
-            f.write( '%f ' % ( loss.numpy() ) )
-        f.write( '\n' )
-os.system('rm -r Image.txt')
-f.close()
+if __name__ == "__main__":
+    main()

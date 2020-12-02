@@ -48,9 +48,9 @@ def train( path, e_model, g_model, e_opt, dataset, train_images, epochs, latent_
 
 
 # LOAD DATA FOR TRAINING
-if len(sys.argv) != 2:
-    print('python3.6 ENCODERTrainingIZI.py <img_dir> \n')
-    print('python3.6 ENCODERTrainingIZI.py Dataset/');
+if len(sys.argv) != 4:
+    print('python3.6 ENCODERTrainingIZI.py <dataset> <ganfolder> <izifolder>\n')
+    print('python3.6 ENCODERTrainingIZI.py ...');
     sys.exit( 1 )
 
 PATCH_SIZE = GO.PATCH_SIZE
@@ -82,10 +82,10 @@ EPOCHS = GO.N_EPOCHS
 dataset = tf.data.Dataset.from_tensor_slices(train_images).shuffle(BUFFER_SIZE).batch(BATCH_SIZE)
 
 # NAME OF THE OUTPUT PATH
-path = 'E' + str(EPOCHS) +'_ENC_IZI'
+path = str( sys.argv[3] )
 cmd = 'mkdir ' + path
 os.system( cmd )
-name = 'E'+str(EPOCHS)+'_GAN/generator_weights_' + '%03d' % (EPOCHS)
+name = str( sys.argv[2] ) + '/generator_weights_' + '%03d' % (EPOCHS)
 
 # CREATE AND LOAD THE GENERATOR MODEL
 g_model = MO.make_generator_model( noise_dim )
