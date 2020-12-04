@@ -63,7 +63,6 @@ if len(sys.argv) != 4:
     sys.exit( 1 )
 
 PATCH_SIZE = GO.PATCH_SIZE
-N_SAMPLES = GO.N_SAMPLES
 img_dir = str( sys.argv[ 1 ] )
 os.system('ls ' + img_dir + ' > Image.txt')
 flag = False
