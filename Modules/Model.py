@@ -53,25 +53,25 @@ def discriminator_loss(real_output, fake_output):
     return total_loss
 
 def make_encoder_model( latent_dim ):
-	model = tf.keras.Sequential()
-	model.add(layers.Conv2D(64, (5, 5), strides=(2, 2), padding='same',input_shape=[28, 28, 3])) #1, 14x14
-	model.add(layers.BatchNormalization())
-	model.add(layers.LeakyReLU())
-
-	model.add(layers.Conv2D(128, (5, 5), strides=(2, 2), padding='same', use_bias=False )) #64, 28x28
-	model.add(layers.BatchNormalization())
-	model.add(layers.LeakyReLU())
-
-	model.add(layers.Conv2D(256, (5, 5), strides=(1, 1), padding='same', use_bias=False)) #128, 28x28
-	model.add(layers.BatchNormalization())
-	model.add(layers.LeakyReLU())
-
-	model.add(layers.Flatten())
-	model.add(layers.Dense( latent_dim, activation='tanh'))
+    model = tf.keras.Sequential()
+    model.add(layers.Conv2D(64, (5, 5), strides=(2, 2), padding='same',input_shape=[28, 28, 3])) #1, 14x14
+    model.add(layers.BatchNormalization())
+    model.add(layers.LeakyReLU())
+    
+    model.add(layers.Conv2D(128, (5, 5), strides=(2, 2), padding='same', use_bias=False )) #64, 28x28
+    model.add(layers.BatchNormalization())
+    model.add(layers.LeakyReLU())
+    
+    model.add(layers.Conv2D(256, (5, 5), strides=(1, 1), padding='same', use_bias=False)) #128, 28x28
+    model.add(layers.BatchNormalization())
+    model.add(layers.LeakyReLU())
+    
+    model.add(layers.Flatten())
+    model.add(layers.Dense( latent_dim, activation='tanh'))
 
     opt = tf.keras.optimizers.RMSprop(1e-3)
-	model.compile(optimizer= opt, loss='mean_squared_error')
-	return model
+    model.compile(optimizer= opt, loss='mean_squared_error')
+    return model
 
 def encoder_loss( real_images, rec_images ):
     return mse( real_images, rec_images )
