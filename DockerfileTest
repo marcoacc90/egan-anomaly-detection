@@ -1,7 +1,7 @@
 FROM tensorflow/tensorflow:latest-gpu-py3
 
-#COPY Dataset/normalTest/ Dataset/normalTest/
-COPY Dataset/novelTest/ Dataset/novelTest/
+COPY Dataset2/normalTest/ Dataset2/normalTest/
+#COPY Dataset2/novelTest/ Dataset2/novelTest/
 COPY E500_GAN/ E500_GAN/
 COPY E500_IZIf/ E500_IZIf/
 
@@ -13,5 +13,5 @@ RUN python3 -m pip install sklearn
 RUN python3 -m pip install pillow
 
 # Execute the program
-#CMD python3 SYSTEMTest.py IZIf 500 Dataset/normalTest/ E500_GAN/ E500_IZIf/ E500Result/ E500IZIf_normal_test.txt
-CMD python3 SYSTEMTest.py IZIf 500 Dataset/novelTest/ E500_GAN/ E500_IZIf/ E500Result/ E500IZIf_novel_test.txt
+CMD python3 SYSTEMTest.py IZIf 500 Dataset2/normalTest/ E500_GAN/ E500_IZIf/ E500Result/ E500IZIf_normal_test.txt
+#CMD python3 SYSTEMTest.py IZIf 500 Dataset2/novelTest/ E500_GAN/ E500_IZIf/ E500Result/ E500IZIf_novel_test.txt
