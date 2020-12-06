@@ -6,15 +6,16 @@ close all
 folder = 'E500Result/';
 MODEL = 'E500IZIf';
 test = 'test';
+dataset = 'dataset2'
 bin = 50;
 
 path = sprintf('./../%s', folder );
-name = sprintf('%s/%s_novel_%s.txt',path,MODEL,test);
+name = sprintf('%s/%s_novel_%s_%s.txt',path,MODEL,test,dataset);
 novel = load(name);
-name = sprintf('%s/%s_normal_%s.txt',path,MODEL,test);
+name = sprintf('%s/%s_normal_%s_%s.txt',path,MODEL,test,dataset);
 normal = load(name);
 
-histogram(normal(:,1),bin)
+histogram(normal(1:2000,1),bin)
 hold on
 histogram(novel(:,1),bin)
 total_data = length(normal(:,1)) + length(novel(:,1))
