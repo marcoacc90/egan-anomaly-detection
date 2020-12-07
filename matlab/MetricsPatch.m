@@ -3,8 +3,8 @@ clc
 
 %%%% SELECT
 EPOCHS = 500;
-MODEL = 'E500IZI';
-dataset = 'dataset2_noscaled';
+MODEL = 'E500IZIf';
+dataset = 'dataset';
 
 % DO NOT CHANGE
 mode = 'Test';
