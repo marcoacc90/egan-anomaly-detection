@@ -1,0 +1,16 @@
+FROM tensorflow/tensorflow:latest-gpu-py3
+
+COPY Dataset3/normalTest/ Dataset3/normalTest/
+#COPY Dataset3/novelTest/ Dataset3/novelTest/
+COPY E500_AE/ E500_AE/
+
+COPY Modules/ Modules/
+COPY AETest.py AETest.py
+
+RUN python3 -m pip install matplotlib
+RUN python3 -m pip install sklearn
+RUN python3 -m pip install pillow
+
+# Execute the program
+CMD python3 AETest.py 500 Dataset3/normalTest/ E500_AE/ E500Result/ E500_AE_normal_test_dataset3.txt
+#CMD python3 AETest.py 500 Dataset3/novelTest/ E500_AE/ E500Result/ E500_AE_novel_test_dataset3.txt

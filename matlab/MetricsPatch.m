@@ -3,8 +3,9 @@ clc
 
 %%%% SELECT
 EPOCHS = 500;
-MODEL = 'E500IZIf';
-dataset = 'dataset';
+MODEL = 'E500AUTOENC';%'E500IZIf';
+model = 'AENC';
+dataset = 'dataset3';
 
 % DO NOT CHANGE
 mode = 'Test';
@@ -49,7 +50,9 @@ ylabel('False positive rate ')
 set(gca,'FontSize',18)
 auc = abs(trapz(fp/n,tp/p))
 plot([0 1],[0 1],'color',[0.5 0.5 0.5])
-cmd  = sprintf('izi_f(AUC=%0.4f)',auc)
+
+
+cmd  = sprintf('%s(AUC=%0.4f)',model,auc)
 legend(cmd)
 
 

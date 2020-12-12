@@ -35,3 +35,12 @@ def savePlot( name, examples, n=10 ):
     filename = '%s' % ( name )
     pyplot.savefig(filename)
     pyplot.close()
+
+def savePlotRectangle( name, examples, n=10, m = 10):
+    for i in range(n * m):
+        pyplot.subplot(m, n, 1 + i )
+        pyplot.axis('off')
+        pyplot.imshow(examples[i, :, :, :])   #, cmap='rgb'
+    filename = '%s' % ( name )
+    pyplot.savefig(filename)
+    pyplot.close()
