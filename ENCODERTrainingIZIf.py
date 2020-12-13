@@ -53,7 +53,7 @@ def train( path, e_model, g_model, d_features, e_opt, dataset, train_images, epo
       train_step( e_model, g_model, d_features, e_opt, image_batch)
     print ('Time for epoch {} is {} sec'.format(epoch + 1, time.time()-start))
 
-    if (epoch + 1) % 10 == 0:
+    if (epoch + 1) % 100 == 0:
         summarize_performance( path, epoch, e_model, g_model, d_features, train_images )
 
 # LOAD DATA FOR TRAINING
@@ -101,7 +101,7 @@ g_model.load_weights( name )
 
 # CREATE AND LOAD THE DISCRIMINATOR MODEL
 name = str(sys.argv[ 2 ]) +'discriminator_weights_' + '%03d' % (EPOCHS)
-d_model = MO.make_discriminator_model( )
+d_model = MO.make_discriminator_model( GO.IMAGE_DIM )
 d_model.load_weights( name )
 d_features = tf.keras.Model( d_model.inputs, d_model.get_layer('flatten').output ) # Create a model without the classification layer
 

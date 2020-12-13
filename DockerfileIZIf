@@ -1,6 +1,6 @@
 FROM tensorflow/tensorflow:latest-gpu-py3
 
-COPY Dataset3/normalTraining/ Dataset3/normalTraining/
+COPY Dataset/normalTraining28/ Dataset/normalTraining28/
 COPY Modules/ Modules/
 COPY E500_GAN/ E500_GAN/
 COPY ENCODERTrainingIZIf.py ENCODERTrainingIZIf.py
@@ -10,4 +10,4 @@ RUN python3 -m pip install sklearn
 RUN python3 -m pip install pillow
 
 # Execute the program
-CMD python3 ENCODERTrainingIZIf.py Dataset3/normalTraining/ E500_GAN/ E500_IZIf/ > E500_IZIf/training.txt
+CMD python3 ENCODERTrainingIZIf.py Dataset3/normalTraining28/ E500_GAN/ E500_IZIf/ > E500_IZIf/training.txt

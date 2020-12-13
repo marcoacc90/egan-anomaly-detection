@@ -46,10 +46,10 @@ def main():
     ganfolder = 'E' + modelid + '_GAN_' + dataset
 
     # LOAD MODELS
-    e_model = MO.make_encoder_model( latent_dim )
-    g_model = MO.make_generator_model( latent_dim )
+    e_model = MO.make_encoder_model( GO.IMAGE_DIM, latent_dim )
+    g_model = MO.make_generator_model( GO.IMAGE_DIM, latent_dim )
 
-    e_model_ae = MO.make_encoder_model( latent_dim )
+    e_model_ae = MO.make_encoder_model(  latent_dim )
     g_model_ae = MO.make_generator_model( latent_dim )
     autoencoder = tf.keras.Sequential( [ e_model_ae, g_model_ae ] )
 

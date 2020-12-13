@@ -51,7 +51,7 @@ def train( path, g_model, d_model, g_opt, d_opt, dataset, train_images, epochs, 
       train_step( g_model, d_model, g_opt, d_opt, image_batch, latent_dim )
     print ('Time for epoch {} is {} sec'.format(epoch + 1, time.time()-start))
 
-    if (epoch + 1) % 10 == 0:
+    if (epoch + 1) % 100 == 0:
         summarize_performance( path, epoch, g_model, d_model, train_images, latent_dim )
 
 
@@ -98,8 +98,8 @@ cmd = 'mkdir ' + path
 os.system( cmd )
 
 # CREATE THE MODELS AND OPTIMIZERS
-g_model = MO.make_generator_model( noise_dim )
-d_model = MO.make_discriminator_model()
+g_model = MO.make_generator_model( GO.IMAGE_DIM, noise_dim )
+d_model = MO.make_discriminator_model( GO.IMAGE_DIM )
 g_opt = tf.keras.optimizers.Adam( 1e-4 )
 d_opt = tf.keras.optimizers.Adam( 1e-4 )
 

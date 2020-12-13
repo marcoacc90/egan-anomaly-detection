@@ -1,2 +1,0 @@
-model_checkpoint_path: "autoencoder_weights_500"
-all_model_checkpoint_paths: "autoencoder_weights_500"

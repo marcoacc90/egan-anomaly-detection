@@ -32,12 +32,12 @@ def main():
     oname = str( sys.argv[ 7 ] )
 
     # LOAD MODELS
-    g_model = MO.make_generator_model( latent_dim )
+    g_model = MO.make_generator_model( GO.IMAGE_DIM, latent_dim )
     g_model.load_weights( ganfolder + 'generator_weights_' + modelid )
-    e_model = MO.make_encoder_model( latent_dim )
+    e_model = MO.make_encoder_model( GO.IMAGE_DIM, latent_dim )
     e_model.load_weights( encfolder + 'encoder_weights_' + modelid )
     if model == 'IZIf':
-        d_model = MO.make_discriminator_model()
+        d_model = MO.make_discriminator_model(GO.IMAGE_DIM )
         d_model.load_weights( ganfolder + 'discriminator_weights_' + modelid )
         d_features = tf.keras.Model( d_model.inputs, d_model.get_layer('flatten').output )
 

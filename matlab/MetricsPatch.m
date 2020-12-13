@@ -1,19 +1,20 @@
 %close all
 clc
+clear
 
 %%%% SELECT
 EPOCHS = 500;
-MODEL = 'E500AUTOENC';%'E500IZIf';
-model = 'AENC';
-dataset = 'dataset3';
+MODEL = 'E500IZIf';%'E500IZIf';
+model = 'IZIf';
+dataset = 'dataset';
 
 % DO NOT CHANGE
 mode = 'Test';
 
-n_thresholds = 10000;
+n_thresholds = 1000;
 path = sprintf('./../E%dResult', EPOCHS );
 
-oname = sprintf('%s/%s_metrics_%s_patch.txt',path,MODEL,mode);
+%oname = sprintf('%s/%s_score_%s_patch.txt',path,MODEL,mode);
 %fileID = fopen( oname, 'w' );
 
 %fprintf(fileID,'\n%s\n',mode);
@@ -22,24 +23,11 @@ novel = load(name);
 name = sprintf('%s/%s_normal_%s_%s.txt',path,MODEL,mode,dataset);
 normal = load(name);
 
-
 normal = normal(:,1);
 novel = novel(:,1);
 
 [p,n,tp,tn,fp,fn,acc, precision, sensitivity, specificity,fscore,mcc,threshold] = ComputeMetricsPatch( normal, novel, n_thresholds );
  
-% 
-% hold on
-% plot(fn/p,tn/n,'LineWidth',3,'color','r')
-% grid on
-% xlabel('False Negative Rate ')
-% ylabel('True Negative Rate ')
-% set(gca,'FontSize',18)
-% auc = abs(trapz(fn/p,tn/n))
-% plot([0 1],[0 1],'color',[0.5 0.5 0.5])
-% cmd  = sprintf('izi_f(AUC=%0.4f)',auc)
-% legend(cmd)
-
 
 %%Horizontal: fp, vertical tp 2018Wang_NoveltyDetection, 2019Abati
 hold on
@@ -48,22 +36,22 @@ grid on
 xlabel('True positive rate ')
 ylabel('False positive rate ')
 set(gca,'FontSize',18)
-auc = abs(trapz(fp/n,tp/p))
+auc = abs(trapz(fp/n,tp/p));
 plot([0 1],[0 1],'color',[0.5 0.5 0.5])
 
-
-cmd  = sprintf('%s(AUC=%0.4f)',model,auc)
+cmd  = sprintf('%s(AUC=%0.4f)',model,auc);
 legend(cmd)
 
+index = find( acc == max(acc) );
+acc(index)
+precision(index)
+sensitivity(index)
+specificity(index)
+fscore(index)
+mcc(index)
 
 
 
-%name = sprintf('%s/%s_auc_%s_patch.png', path,MODEL,mode );
-%saveas(gcf,name)
-
-
-% fprintf(fileID,'\nMaximum acc\n');
-% index = find( acc == max(acc) );
 % if length(index) == 1
 %     id = index;
 % else
