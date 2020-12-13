@@ -56,15 +56,16 @@ def train( path, g_model, d_model, g_opt, d_opt, dataset, train_images, epochs, 
 
 
 # LOAD DATA FOR TRAINING
-if len(sys.argv) != 2:
-    print('python3.6 training.py <img_dir> \n')
-    print('python3.6 training.py Dataset/normalTraining/');
+if len(sys.argv) != 3:
+    print('python3 GANTraining.py <img_dir> \n')
+    print('python3 GANTraining.py Dataset/normalTraining/ GAN_OUTPUT/');
     sys.exit( 1 )
 
 # LOAD IMAGES AND CONSTRUCT THE PATCHES
 PATCH_SIZE = GO.PATCH_SIZE
 
 img_dir = str( sys.argv[ 1 ] )
+gan_dir = str( sys.argv[ 2 ])
 os.system('ls ' + img_dir + ' > Image.txt')
 flag = False
 with open('Image.txt', 'r') as filehandle:
@@ -93,9 +94,7 @@ EPOCHS = GO.N_EPOCHS
 dataset = tf.data.Dataset.from_tensor_slices(train_images).shuffle(BUFFER_SIZE).batch(BATCH_SIZE)
 
 # NAME OF THE OUTPUT PATH
-path = 'E' + str(EPOCHS) +'_GAN/'
-cmd = 'mkdir ' + path
-os.system( cmd )
+os.system( 'mkdir ' + gan_dir )
 
 # CREATE THE MODELS AND OPTIMIZERS
 g_model = MO.make_generator_model( GO.IMAGE_DIM, noise_dim )

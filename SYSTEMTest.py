@@ -56,15 +56,14 @@ def main():
             start_time = time.time()
             Ex = e_model.predict( x )
             GEx = g_model.predict( Ex )
-            time_sec = ( time.time() - start_time )
             if model == 'IZIf' :
                 recon_features = d_features.predict( GEx )
                 image_features = d_features.predict( x )
-                time_sec = ( time.time() - start_time )
             if model == 'IZIf':
                 loss = MO.mse( x[0,:,:,:], GEx[0,:,:,:] ) + MO.mse( image_features[0,:], recon_features[0,:] )
             else:
                 loss = MO.mse( x[0,:,:,:], GEx[0,:,:,:] )
+            time_sec = ( time.time() - start_time )
             f.write( '%f %f\n' % ( loss.numpy(), time_sec) )
     os.system('rm -r Image.txt')
     f.close()
