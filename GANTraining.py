@@ -80,6 +80,7 @@ with open('Image.txt', 'r') as filehandle:
             train_images = np.copy( x )
             flag = True
         print( train_images.shape )
+
 os.system('rm -r Image.txt')
 
 print('Patches are ready, shape: {}'.format(train_images.shape))
@@ -103,4 +104,4 @@ g_opt = tf.keras.optimizers.Adam( 1e-4 )
 d_opt = tf.keras.optimizers.Adam( 1e-4 )
 
 # START THE TRAINING
-train( path, g_model, d_model, g_opt, d_opt, dataset, train_images, EPOCHS, noise_dim )
+train( gan_dir, g_model, d_model, g_opt, d_opt, dataset, train_images, EPOCHS, noise_dim )

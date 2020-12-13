@@ -96,7 +96,7 @@ os.system( cmd )
 
 # CREATE AND LOAD THE GENERATOR MODEL
 name = str(sys.argv[ 2 ]) + 'generator_weights_' + '%03d' % (EPOCHS)
-g_model = MO.make_generator_model( noise_dim )
+g_model = MO.make_generator_model(GO.IMAGE_DIM, noise_dim )
 g_model.load_weights( name )
 
 # CREATE AND LOAD THE DISCRIMINATOR MODEL
@@ -105,7 +105,7 @@ d_model = MO.make_discriminator_model( GO.IMAGE_DIM )
 d_model.load_weights( name )
 d_features = tf.keras.Model( d_model.inputs, d_model.get_layer('flatten').output ) # Create a model without the classification layer
 
-e_model = MO.make_encoder_model( noise_dim )
+e_model = MO.make_encoder_model( GO.IMAGE_DIM, noise_dim )
 e_opt = tf.keras.optimizers.RMSprop( 1e-3 )
 
 # START THE TRAINING
