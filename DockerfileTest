@@ -1,11 +1,11 @@
 FROM tensorflow/tensorflow:latest-gpu-py3
 
-#COPY Dataset1/normalTraining28/ Dataset1/normalTraining28/
-#COPY Dataset1/normalTest28/ Dataset1/normalTest28/
-COPY Dataset1/novelTest28/ Dataset1/novelTest28/
+#COPY Dataset1/normalTraining24/ Dataset1/normalTraining24/
+COPY Dataset1/normalTest24/ Dataset1/normalTest24/
+#COPY Dataset1/novelTest24/ Dataset1/novelTest24/
 
-COPY E500_GAN_P28_L10/ E500_GAN_P28_L10/
-COPY E500_IZIf_P28_L10/ E500_IZIf_P28_L10/
+COPY E500_GAN_P24_L10/ E500_GAN_P24_L10/
+COPY E500_IZIf_P24_L10/ E500_IZIf_P24_L10/
 
 COPY Modules/ Modules/
 COPY SYSTEMTest.py SYSTEMTest.py
@@ -14,6 +14,6 @@ RUN python3 -m pip install matplotlib
 RUN python3 -m pip install sklearn
 RUN python3 -m pip install pillow
 
-#CMD python3 SYSTEMTest.py IZIf 500 Dataset1/normalTraining28/ E500_GAN_P28_L10/ E500_IZIf_P28_L10/ Result/ E500IZIf_normal_training_P28_L10.txt
-#CMD python3 SYSTEMTest.py IZIf 500 Dataset1/normalTest28/ E500_GAN_P28_L10/ E500_IZIf_P28_L10/ Result/ E500IZIf_normal_test_P28_L10.txt
-CMD python3 SYSTEMTest.py IZIf 500 Dataset1/novelTest28/ E500_GAN_P28_L10/ E500_IZIf_P28_L10/ Result/ E500IZIf_novel_test_dataset1_P28_L10.txt
+#CMD python3 SYSTEMTest.py IZIf 500 Dataset1/normalTraining24/ E500_GAN_P24_L10/ E500_IZIf_P24_L10/ Result/ E500IZIf_normal_training_P24_L10.txt
+CMD python3 SYSTEMTest.py IZIf 500 Dataset1/normalTest24/ E500_GAN_P24_L10/ E500_IZIf_P24_L10/ Result/ E500IZIf_normal_test_P24_L10.txt
+#CMD python3 SYSTEMTest.py IZIf 500 Dataset1/novelTest24/ E500_GAN_P24_L10/ E500_IZIf_P24_L10/ Result/ E500IZIf_novel_test_P24_L10.txt

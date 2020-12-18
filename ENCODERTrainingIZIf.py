@@ -1,3 +1,4 @@
+
 import time
 import tensorflow as tf
 from tensorflow.keras.preprocessing import image as kimage
@@ -104,6 +105,10 @@ name = str(sys.argv[ 2 ]) +'discriminator_weights_' + '%03d' % (EPOCHS)
 d_model = MO.make_discriminator_model( GO.IMAGE_DIM )
 d_model.load_weights( name )
 d_features = tf.keras.Model( d_model.inputs, d_model.get_layer('flatten').output ) # Create a model without the classification layer
+
+
+print('Noise dime:  ', noise_dim )
+print('Image size:  ', GO.IMAGE_DIM)
 
 e_model = MO.make_encoder_model( GO.IMAGE_DIM, noise_dim )
 e_opt = tf.keras.optimizers.RMSprop( 1e-3 )

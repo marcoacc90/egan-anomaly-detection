@@ -97,6 +97,9 @@ dataset = tf.data.Dataset.from_tensor_slices(train_images).shuffle(BUFFER_SIZE).
 # NAME OF THE OUTPUT PATH
 os.system( 'mkdir ' + gan_dir )
 
+print( 'Noise dim: ', noise_dim )
+print( 'Image size:  ', GO.IMAGE_DIM )
+
 # CREATE THE MODELS AND OPTIMIZERS
 g_model = MO.make_generator_model( GO.IMAGE_DIM, noise_dim )
 d_model = MO.make_discriminator_model( GO.IMAGE_DIM )
