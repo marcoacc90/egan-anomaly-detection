@@ -1,6 +1,6 @@
 FROM tensorflow/tensorflow:latest-gpu-py3
 
-COPY Dataset1/normalTraining32/ Dataset1/normalTraining32/
+COPY Dataset2/normalTraining32/ Dataset2/normalTraining32/
 
 COPY Modules/ Modules/
 COPY GANTraining.py GANTraining.py
@@ -10,4 +10,4 @@ RUN python3 -m pip install sklearn
 RUN python3 -m pip install pillow
 
 # Execute the program
-CMD python3 GANTraining.py Dataset1/normalTraining32/  E500_GAN_P32_L1000/ > E500_GAN_P32_L1000/training.txt
+CMD python3 GANTraining.py Dataset2/normalTraining32/  E500_GAN_Dataset2/ > E500_GAN_Dataset2/training.txt

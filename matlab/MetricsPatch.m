@@ -6,7 +6,7 @@ clear
 MODEL = 'E500IZIf';%'E500IZIf';
 model = 'IZIf';
 dataset = 'dataset1';
-patch = 28;
+patch = 32;
 latensize = 1000;
 
 % DO NOT CHANGE
