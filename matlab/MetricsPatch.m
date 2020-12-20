@@ -3,24 +3,25 @@ clc
 clear
 
 %%%% SELECT
-EPOCHS = 500;
 MODEL = 'E500IZIf';%'E500IZIf';
 model = 'IZIf';
-dataset = 'dataset';
+dataset = 'dataset1';
+patch = 28;
+latensize = 1000;
 
 % DO NOT CHANGE
 mode = 'Test';
 
 n_thresholds = 1000;
-path = sprintf('./../E%dResult', EPOCHS );
+path = './../Result';
 
 %oname = sprintf('%s/%s_score_%s_patch.txt',path,MODEL,mode);
 %fileID = fopen( oname, 'w' );
 
 %fprintf(fileID,'\n%s\n',mode);
-name = sprintf('%s/%s_novel_%s_%s.txt',path,MODEL,mode,dataset);
+name = sprintf('%s/%s_novel_%s_%s_P%d_L%d.txt',path,MODEL,mode,dataset,patch,latensize);
 novel = load(name);
-name = sprintf('%s/%s_normal_%s_%s.txt',path,MODEL,mode,dataset);
+name = sprintf('%s/%s_normal_%s_%s_P%d_L%d.txt',path,MODEL,mode,dataset,patch,latensize);
 normal = load(name);
 
 normal = normal(:,1);
@@ -36,19 +37,19 @@ grid on
 xlabel('True positive rate ')
 ylabel('False positive rate ')
 set(gca,'FontSize',18)
-auc = abs(trapz(fp/n,tp/p));
+auc = abs(trapz(fp/n,tp/p))
 plot([0 1],[0 1],'color',[0.5 0.5 0.5])
 
 cmd  = sprintf('%s(AUC=%0.4f)',model,auc);
 legend(cmd)
 
-index = find( acc == max(acc) );
-acc(index)
-precision(index)
-sensitivity(index)
-specificity(index)
-fscore(index)
-mcc(index)
+% index = find( acc == max(acc) );
+% acc(index)
+% precision(index)
+% sensitivity(index)
+% specificity(index)
+% fscore(index)
+% mcc(index)
 
 
 
