@@ -88,10 +88,10 @@ os.system( cmd )
 name = str( sys.argv[2] ) + 'generator_weights_' + '%03d' % (EPOCHS)
 
 # CREATE AND LOAD THE GENERATOR MODEL
-g_model = MO.make_generator_model( noise_dim )
+g_model = MO.make_generator_model( GO.IMAGE_DIM,  noise_dim )
 g_model.load_weights( name )
 
-e_model = MO.make_encoder_model( noise_dim )
+e_model = MO.make_encoder_model( GO.IMAGE_DIM, noise_dim )
 e_opt = tf.keras.optimizers.RMSprop( 1e-3 )
 
 # START THE TRAINING
