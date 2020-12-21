@@ -47,13 +47,13 @@ EPOCHS = GO.N_EPOCHS
 dataset = tf.data.Dataset.from_tensor_slices(train_images).shuffle(BUFFER_SIZE).batch(BATCH_SIZE)
 
 # NAME OF THE OUTPUT PATH
-path = 'E' + str(EPOCHS) +'_AUTOENC'
+path = 'E' + str(EPOCHS) +'_AE'
 cmd = 'mkdir ' + path
 os.system( cmd )
 
 # CREATE THE MODELS AND OPTIMIZERS
-encoder = MO.make_encoder_model( noise_dim )
-decoder = MO.make_generator_model( noise_dim )
+encoder = MO.make_encoder_model( GO.IMAGE_DIM, noise_dim )
+decoder = MO.make_generator_model( GO.IMAGE_DIM, noise_dim )
 autoencoder = tf.keras.Sequential( [ encoder, decoder ] )
 autoencoder.compile(optimizer=tf.keras.optimizers.RMSprop( 1e-3 ), loss='mean_squared_error' )
 
@@ -61,7 +61,7 @@ checkpoint_filepath = path + '/autoencoder_weights_{epoch:02d}'
 model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
     filepath = checkpoint_filepath,
     save_weights_only = True,
-    period = 50,
+    period = 100,
     mode = 'max',
     save_best_only = False )
 

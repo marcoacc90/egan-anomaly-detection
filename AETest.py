@@ -31,8 +31,8 @@ ofolder = str( sys.argv[ 4 ] )
 oname = str( sys.argv[ 5 ] )
 
 # LOAD MODELS
-encoder = MO.make_encoder_model( latent_dim )
-decoder = MO.make_generator_model( latent_dim )
+encoder = MO.make_encoder_model( GO.IMAGE_DIM, latent_dim )
+decoder = MO.make_generator_model( GO.IMAGE_DIM, latent_dim )
 autoencoder = tf.keras.Sequential( [ encoder, decoder ] )
 autoencoder.load_weights( autoencfolder + 'autoencoder_weights_' + modelid )
 

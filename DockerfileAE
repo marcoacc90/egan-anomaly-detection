@@ -1,6 +1,6 @@
 FROM tensorflow/tensorflow:latest-gpu-py3
 
-COPY Dataset3/normalTraining/ Dataset3/normalTraining/
+COPY Dataset2/normalTraining32/ Dataset2/normalTraining32/
 COPY Modules/ Modules/
 COPY AETraining.py AETraining.py
 
@@ -9,4 +9,4 @@ RUN python3 -m pip install sklearn
 RUN python3 -m pip install pillow
 
 # Execute the program
-CMD python3 AETraining.py Dataset3/normalTraining/  > E500_AE/training.txt
+CMD python3 AETraining.py Dataset2/normalTraining32/  > E500_AE/training.txt
