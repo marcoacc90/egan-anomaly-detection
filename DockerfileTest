@@ -1,10 +1,10 @@
 FROM tensorflow/tensorflow:latest-gpu-py3
 
-#COPY Dataset2/normalTest32/ Dataset2/normalTest32/
-COPY Dataset2/novelTest32/ Dataset2/novelTest32/
+#COPY Dataset1/normalTest32/ Dataset1/normalTest32/
+COPY Dataset1/novelTest32/ Dataset1/novelTest32/
 
-COPY E500_GAN_Dataset2/ E500_GAN_Dataset2/
-COPY E500_ZIZ_Dataset2/ E500_ZIZ_Dataset2/
+COPY E500_GAN_Dataset1/ E500_GAN_Dataset1/
+COPY E500_IZI_Dataset1/ E500_IZI_Dataset1/
 
 COPY Modules/ Modules/
 COPY SYSTEMTest.py SYSTEMTest.py
@@ -13,5 +13,5 @@ RUN python3 -m pip install matplotlib
 RUN python3 -m pip install sklearn
 RUN python3 -m pip install pillow
 
-#CMD python3 SYSTEMTest.py ZIZ 500 Dataset2/normalTest32/ E500_GAN_Dataset2/ E500_ZIZ_Dataset2/ Result/ E500ZIZ_normal_test_dataset2.txt
-CMD python3 SYSTEMTest.py ZIZ 500 Dataset2/novelTest32/ E500_GAN_Dataset2/ E500_ZIZ_Dataset2/ Result/ E500ZIZ_novel_test_dataset2.txt
+#CMD python3 SYSTEMTest.py IZI 500 Dataset1/normalTest32/ E500_GAN_Dataset1/ E500_IZI_Dataset1/ Result/ E500IZI_normal_test_dataset1.txt
+CMD python3 SYSTEMTest.py IZI 500 Dataset1/novelTest32/ E500_GAN_Dataset1/ E500_IZI_Dataset1/ Result/ E500IZI_novel_test_dataset1.txt

@@ -2,6 +2,7 @@ FROM tensorflow/tensorflow:latest-gpu-py3
 
 COPY Dataset1/normalTraining32/ Dataset1/normalTraining32/
 COPY Modules/ Modules/
+
 COPY E500_GAN_Dataset1/ E500_GAN_Dataset1/
 COPY ENCODERTrainingIZI.py ENCODERTrainingIZI.py
 
