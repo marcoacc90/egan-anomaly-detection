@@ -51,7 +51,7 @@ if len(sys.argv) != 3:
     print('python3.6 ENCODERTrainingZIZ.py');
     sys.exit( 1 )
 
-BUFFER_SIZE = 17996    # DATASET2 17996, DATASET2: 48000
+BUFFER_SIZE = 48000    # DATASET2 17996, DATASET2: 48000
 BATCH_SIZE = GO.BATCH_SIZE
 noise_dim = GO.NOISE_DIM
 EPOCHS = GO.N_EPOCHS

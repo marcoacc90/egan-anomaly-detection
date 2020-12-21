@@ -5,7 +5,7 @@ close all
 
 %%%% SELECT
 
-model = {'AE','IZI','ZIZ','IZIf'};
+model = {'ZIZ','AE','IZI','IZIf'};
 model_id = 'E500'; 
 dataset = 'dataset2';
 
@@ -36,9 +36,5 @@ ylabel('False positive rate')
 set(gca,'FontSize',18)
 legend( leg )
 
-leg
 % %%Horizontal: fp, vertical tp 2018Wang_NoveltyDetection, 2019Abati
-
-
 plot([0 1],[0 1],'color',[0.5 0.5 0.5])
-% 
