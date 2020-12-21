@@ -4,32 +4,27 @@ close all
 
 %%%% SELECT
 folder = 'Result/';
-MODEL = 'E500IZIf'%'E500IZIf', E500AE
+MODEL = 'E500IZIf';%'E500IZIf', E500AE
 test = 'test';
-dataset = 'dataset1'
-bin = 100;
-P = 28;
-L = 1000;
+dataset = 'dataset2';
 
 path = sprintf('./../%s', folder );
-name = sprintf('%s/%s_normal_training_%s_P%d_L%d.txt',path,MODEL,dataset,P,L);
+name = sprintf('%s/%s_normal_training_%s.txt',path,MODEL,dataset);
 normal_train = load(name);
-name = sprintf('%s/%s_normal_test_%s_P%d_L%d.txt',path,MODEL,dataset,P,L);
+name = sprintf('%s/%s_normal_test_%s.txt',path,MODEL,dataset);
 normal_test = load(name);
-name = sprintf('%s/%s_novel_test_%s_P%d_L%d.txt',path,MODEL,dataset,P,L);
+name = sprintf('%s/%s_novel_test_%s.txt',path,MODEL,dataset);
 novel_test = load(name);
 
-
-histogram(normal_train(:,1),bin,'Normalization','probability')
+histogram(normal_train(:,1),10,'Normalization','probability')
 hold on
-histogram(normal_test(:,1),bin,'Normalization','probability')
-histogram(novel_test(:,1),bin,'Normalization','probability')
+histogram(normal_test(:,1),10,'Normalization','probability')
+histogram(novel_test(:,1),30,'Normalization','probability')
 
+axis([-0.05 1 0 1.05])
 %title(mode)
 xlabel('Anomaly Score')
 ylabel('h')
 grid on
-legend('Normal Training','Normal Test', 'Anomaly Test')
-%set(gca,'FontSize',18)
-%name = sprintf('%s/%s_hist_%s.png', path,MODEL,mode );
-%saveas(gcf,name)
+legend('Normal (training)','Normal (test)', 'Anomaly (test)')
+set(gca,'FontSize',18)
