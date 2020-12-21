@@ -3,14 +3,14 @@ clc
 clear
 
 %%%% SELECT
-MODEL = 'E500IZIf';%'E500IZIf';
-model = 'IZIf';
-dataset = 'dataset1';
+MODEL = 'E500AE';%'E500IZIf';
+model = 'AE';
+dataset = 'dataset2';
 patch = 32;
-latensize = 1000;
+latensize = 100;
 
 % DO NOT CHANGE
-mode = 'Test';
+mode = 'test';
 
 n_thresholds = 1000;
 path = './../Result';
@@ -18,11 +18,19 @@ path = './../Result';
 %oname = sprintf('%s/%s_score_%s_patch.txt',path,MODEL,mode);
 %fileID = fopen( oname, 'w' );
 
-%fprintf(fileID,'\n%s\n',mode);
-name = sprintf('%s/%s_novel_%s_%s_P%d_L%d.txt',path,MODEL,mode,dataset,patch,latensize);
+% name = sprintf('%s/%s_novel_%s_%s_P%d_L%d.txt',path,MODEL,mode,dataset,patch,latensize);
+% novel = load(name);
+% name = sprintf('%s/%s_normal_%s_%s_P%d_L%d.txt',path,MODEL,mode,dataset,patch,latensize);
+% normal = load(name);
+
+
+name = sprintf('%s/%s_novel_%s_%s.txt',path,MODEL,mode,dataset);
 novel = load(name);
-name = sprintf('%s/%s_normal_%s_%s_P%d_L%d.txt',path,MODEL,mode,dataset,patch,latensize);
+name = sprintf('%s/%s_normal_%s_%s.txt',path,MODEL,mode,dataset);
 normal = load(name);
+
+
+
 
 normal = normal(:,1);
 novel = novel(:,1);

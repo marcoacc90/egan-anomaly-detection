@@ -53,7 +53,7 @@ if len(sys.argv) != 3:
     print('python3.6 ENCODERTrainingZIZ.py');
     sys.exit( 1 )
 
-BUFFER_SIZE = 37800    # CURRENT ESTIMATION (DATASET2: 300*126)
+BUFFER_SIZE = 17996    # DATASET2 17996, DATASET2: 48000
 BATCH_SIZE = GO.BATCH_SIZE
 noise_dim = GO.NOISE_DIM
 EPOCHS = GO.N_EPOCHS
@@ -66,9 +66,9 @@ os.system( cmd )
 name = str( sys.argv[ 1 ] ) + '/generator_weights_' + '%03d' % (EPOCHS)
 
 # CREATE AND LOAD THE GENERATOR MODEL
-g_model = MO.make_generator_model( noise_dim )
+g_model = MO.make_generator_model( GO.IMAGE_DIM, noise_dim )
 g_model.load_weights( name )
-e_model = MO.make_encoder_model( noise_dim )
+e_model = MO.make_encoder_model( GO.IMAGE_DIM, noise_dim )
 e_opt = tf.keras.optimizers.RMSprop( 1e-3 )
 
 # START THE TRAINING
