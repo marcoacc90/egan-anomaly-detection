@@ -3,8 +3,6 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 from matplotlib import pyplot
-from tensorflow.keras.preprocessing import image as kimage
-from sklearn.feature_extraction import image as simage
 import numpy as np
 import os
 import sys
@@ -63,7 +61,7 @@ N_BATCHES = math.ceil( BUFFER_SIZE / BATCH_SIZE )
 path = str( sys.argv[ 2 ] )
 cmd = 'mkdir ' + path
 os.system( cmd )
-name = str( sys.argv[ 1 ] ) + '/generator_weights_' + '%03d' % (EPOCHS)
+name = str( sys.argv[ 1 ] ) + 'generator_weights_' + '%03d' % (EPOCHS)
 
 # CREATE AND LOAD THE GENERATOR MODEL
 g_model = MO.make_generator_model( GO.IMAGE_DIM, noise_dim )
