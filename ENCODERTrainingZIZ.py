@@ -43,7 +43,7 @@ def train( path, e_model, g_model, e_opt, epochs, n_batches, batch_size, latent_
       train_step( e_model, g_model, e_opt, latent_dim, batch_size )
     print ('Time for epoch {} is {} sec'.format(epoch + 1, time.time()-start))
 
-    if (epoch + 1) % 10 == 0:
+    if (epoch + 1) % 100 == 0:
         summarize_performance( path, epoch, e_model, g_model, latent_dim )
 
 
