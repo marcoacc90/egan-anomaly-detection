@@ -8,4 +8,4 @@ PATCH_SIZE = 32                             # TO CHANGE 24,28, 32
 IMAGE_DIM = (PATCH_SIZE, PATCH_SIZE, 3)
 
 
-N_SAMPLES = 500          # Number of samples per image
+N_SAMPLES = 300          # Number of samples per image
