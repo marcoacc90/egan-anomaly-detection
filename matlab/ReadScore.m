@@ -16,15 +16,15 @@ normal_test = load(name);
 name = sprintf('%s/%s_novel_test_%s.txt',path,MODEL,dataset);
 novel_test = load(name);
 
-histogram(normal_train(:,1),10,'Normalization','probability')
+histogram(normal_train(:,1),20,'Normalization','probability')   %dataset1: 10,10,80
 hold on
-histogram(normal_test(:,1),10,'Normalization','probability')
-histogram(novel_test(:,1),30,'Normalization','probability')
+histogram(normal_test(:,1),20,'Normalization','probability')
+histogram(novel_test(:,1),70,'Normalization','probability')
 
-axis([-0.05 1 0 1.05])
+axis([-0.02 1 0 0.5])
 %title(mode)
 xlabel('Anomaly Score')
-ylabel('h')
+ylabel('Probability')
 grid on
 legend('Normal (training)','Normal (test)', 'Anomaly (test)')
 set(gca,'FontSize',18)
